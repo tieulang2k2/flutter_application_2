@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,12 +14,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ProfilePage(),
+      home: const ProfilePage(),
     );
   }
 }
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -48,8 +52,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Học kỳ 2 - 2023-2024'),
-        actions: [
+        title: const Text('Học kỳ 2 - 2023-2024'),
+        actions: const [
           Padding(
             padding: EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
@@ -58,75 +62,67 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-      drawer: Drawer(),
+      drawer: const Drawer(),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Row(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Phần đầu bên trái
-            Expanded(
-              flex: 2,
-              child: Card(
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundImage:
-                          NetworkImage('https://i.pravatar.cc/300'),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      'Phạm Văn Tuấn',
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                    Text('NGÀNH CHUYÊN NGÀNH KỸ THUẬT PHẦN MỀM (KỸ SƯ)'),
-                    Text('LỚP 20SE4 MSV 20IT344'),
-                    SizedBox(height: 20),
-                    ListTile(
-                      leading: Icon(Icons.person),
-                      title: Text('Thông tin cá nhân'),
-                      onTap: () {
-                        setState(() {
-                          _showFamilyInfo = false;
-                        });
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.home),
-                      title: Text('Thông tin gia đình'),
-                      onTap: () {
-                        setState(() {
-                          _showFamilyInfo = true;
-                        });
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.location_on),
-                      title: Text('Địa chỉ và thường trú'),
-                      // onTap: () {
-                      //   setState(() {
-                      //     _showFamilyInfo = false;
-                      //   });
-                      // },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.contact_phone),
-                      title: Text('Thông tin liên hệ'),
-                    ),
-                  ],
-                ),
+            Card(
+              child: Column(
+                children: [
+                  const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage('https://i.pravatar.cc/300'),
+                  ),
+                  const SizedBox(height: 8.0),
+                  const Text(
+                    'Phạm Văn Tuấn',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const Text('NGÀNH CHUYÊN NGÀNH KỸ THUẬT PHẦN MỀM (KỸ SƯ)'),
+                  const Text('LỚP 20SE4 MSV 20IT344'),
+                  const SizedBox(height: 20),
+                  ListTile(
+                    leading: const Icon(Icons.person),
+                    title: const Text('Thông tin cá nhân'),
+                    onTap: () {
+                      setState(() {
+                        _showFamilyInfo = false;
+                      });
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.home),
+                    title: const Text('Thông tin gia đình'),
+                    onTap: () {
+                      setState(() {
+                        _showFamilyInfo = true;
+                      });
+                    },
+                  ),
+                  const ListTile(
+                    leading: Icon(Icons.location_on),
+                    title: Text('Địa chỉ và thường trú'),
+                    // onTap: () {
+                    //   setState(() {
+                    //     _showFamilyInfo = false;
+                    //   });
+                    // },
+                  ),
+                  const ListTile(
+                    leading: Icon(Icons.contact_phone),
+                    title: Text('Thông tin liên hệ'),
+                  ),
+                ],
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(height: 16),
             // Phần thông tin cá nhân bên phải
-            Expanded(
-              flex: 5,
-              child: _showFamilyInfo
-                  ? _buildFamilyInfoCard()
-                  : _buildPersonalInfoCard(context),
-            ),
+            _showFamilyInfo
+                ? _buildFamilyInfoCard()
+                : _buildPersonalInfoCard(context),
           ],
         ),
       ),
@@ -140,103 +136,78 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Thông tin cá nhân',
+            const Text('Thông tin cá nhân',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
-            Row(
+            const SizedBox(height: 10),
+            _buildResponsiveRow(
+              context,
               children: [
-                Expanded(
-                    child: _buildTextField(
-                        label: 'Họ và tên',
-                        initialValue: 'Phạm Văn Tuấn',
-                        enabled: false)),
-                SizedBox(width: 16),
-                Expanded(
-                    child: _buildTextField(
-                        label: 'Giới tính',
-                        initialValue: 'Nam',
-                        enabled: false)),
-                SizedBox(width: 16),
-                Expanded(
-                    child: _buildTextField(
-                        label: 'Ngày sinh',
-                        initialValue: '20-02-2002',
-                        enabled: false)),
+                _buildTextField(
+                    label: 'Họ và tên',
+                    initialValue: 'Phạm Văn Tuấn',
+                    enabled: false),
+                _buildTextField(
+                    label: 'Giới tính',
+                    initialValue: 'Nam',
+                    enabled: false),
+                _buildTextField(
+                    label: 'Ngày sinh',
+                    initialValue: '20-02-2002',
+                    enabled: false),
               ],
             ),
-            Row(
+            _buildResponsiveRow(
+              context,
               children: [
-                Expanded(
-                    child: _buildTextField(
-                        label: 'Nơi sinh',
-                        initialValue: 'Quảng Nam',
-                        enabled: false)),
-                SizedBox(width: 16),
-                Expanded(
-                    child: _buildTextField(
-                        label: 'Dân tộc',
-                        initialValue: 'Kinh',
-                        enabled: false)),
+                _buildTextField(
+                    label: 'Nơi sinh',
+                    initialValue: 'Quảng Nam',
+                    enabled: false),
+                _buildTextField(
+                    label: 'Dân tộc',
+                    initialValue: 'Kinh',
+                    enabled: false),
               ],
             ),
-            Row(
+            _buildResponsiveRow(
+              context,
               children: [
-                Expanded(
-                    child: _buildTextField(
-                        label: 'CMND',
-                        initialValue: '206379271',
-                        enabled: false)),
-                SizedBox(width: 16),
-                Expanded(
-                    child: _buildDateField(context,
-                        label: 'Ngày cấp', controller: _ngayCapController)),
+                _buildTextField(
+                    label: 'CMND',
+                    initialValue: '206379271',
+                    enabled: false),
+                _buildDateField(context,
+                    label: 'Ngày cấp', controller: _ngayCapController),
               ],
             ),
-            Row(
+            _buildTextField(label: 'Nơi cấp', initialValue: 'Quảng Nam'),
+            _buildResponsiveRow(
+              context,
               children: [
-                Expanded(
-                    child: _buildTextField(
-                        label: 'Nơi cấp', initialValue: 'Quảng Nam')),
+                _buildTextField(
+                    label: 'CCCD',
+                    initialValue: '049202013298',
+                    enabled: false),
+                _buildDateField(context,
+                    label: 'Ngày cấp CCCD',
+                    controller: _ngayCapCCCDController),
               ],
             ),
-            Row(
+            _buildTextField(
+                label: 'Nơi cấp CCCD',
+                initialValue:
+                'Cục Cảnh sát quản lý hành chính về trật tự xã hội'),
+            _buildResponsiveRow(
+              context,
               children: [
-                Expanded(
-                    child: _buildTextField(
-                        label: 'CCCD',
-                        initialValue: '049202013298',
-                        enabled: false)),
-                SizedBox(width: 16),
-                Expanded(
-                    child: _buildDateField(context,
-                        label: 'Ngày cấp CCCD',
-                        controller: _ngayCapCCCDController)),
+                _buildDropdownField(label: 'Đoàn thể'),
+                _buildDateField(context,
+                    label: 'Ngày kết nạp', controller: _ngayKetNapController),
+                _buildTextField(label: 'Tôn giáo', initialValue: 'Không'),
               ],
             ),
-            Row(
-              children: [
-                Expanded(
-                    child: _buildTextField(
-                        label: 'Nơi cấp CCCD',
-                        initialValue:
-                            'Cục Cảnh sát quản lý hành chính về trật tự xã hội')),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(child: _buildDropdownField(label: 'Đoàn thể')),
-                SizedBox(width: 16),
-                Expanded(
-                    child: _buildDateField(context,
-                        label: 'Ngày kết nạp',
-                        controller: _ngayKetNapController)),
-                SizedBox(width: 16),
-                Expanded(
-                    child: _buildTextField(
-                        label: 'Tôn giáo', initialValue: 'Không')),
-              ],
-            ),
-            Row(
+            _buildResponsiveRow(
+              context,
               children: [
                 Expanded(
                   flex: 3,
@@ -245,7 +216,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     initialValue: 'Con liệt sĩ/thương bệnh binh',
                   ),
                 ),
-                SizedBox(width: 16),
                 Expanded(
                   flex: 2,
                   child: _buildTextField(
@@ -254,15 +224,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text('Lưu'),
+                child: const Text('Lưu'),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Sinh viên liên hệ phòng công tác sinh viên hoặc 0236 3667 129 nếu có thay đổi chi tiết thông tin cá nhân (Áp dụng với các trường thông tin bị làm mờ)',
               style: TextStyle(color: Colors.blue),
               textAlign: TextAlign.center,
@@ -280,81 +250,53 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Thông tin gia đình',
+            const Text('Thông tin gia đình',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
-            Row(
+            const SizedBox(height: 10),
+            _buildResponsiveRow(
+              context,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('|Cha',
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 10),
-                      _buildTextField(
-                          label: 'Họ tên', initialValue: 'Phạm Văn Dũng'),
-                      _buildTextField(label: 'Năm sinh', initialValue: '1968'),
-                      _buildTextField(label: 'Dân tộc', initialValue: 'Kinh'),
-                      _buildTextField(
-                          label: 'CMND/CCCD', initialValue: '049060801712'),
-                      _buildTextField(
-                          label: 'Nghề nghiệp', initialValue: 'Nông'),
-                      _buildTextField(
-                          label: 'Nơi cư trú cha',
-                          initialValue:
-                              'Phú Đông, Đại Hiệp, Đại Lộc, Quảng Nam'),
-                      _buildTextField(label: 'Cơ quan công tác'),
-                      _buildDropdownFieldFamily(label: 'Trình độ'),
-                      _buildTextField(label: 'Email'),
-                      _buildTextField(label: 'SDT', initialValue: '0379965269'),
-                    ],
-                  ),
+                _buildFamilyMemberInfo(
+                  labelPrefix: '|Cha',
+                  name: 'Phạm Văn Dũng',
+                  yearOfBirth: '1968',
+                  ethnicity: 'Kinh',
+                  idNumber: '049060801712',
+                  occupation: 'Nông',
+                  residence: 'Phú Đông, Đại Hiệp, Đại Lộc, Quảng Nam',
+                  workplace: '',
+                  educationLevel: '',
+                  email: '',
+                  phoneNumber: '0379965269',
                 ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('|Mẹ',
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 10),
-                      _buildTextField(
-                          label: 'Họ tên', initialValue: 'Trần Thị Thanh Xuân'),
-                      _buildTextField(label: 'Năm sinh', initialValue: '1977'),
-                      _buildTextField(label: 'Dân tộc', initialValue: 'Kinh'),
-                      _buildTextField(
-                          label: 'CMND/CCCD', initialValue: '04817700475'),
-                      _buildTextField(
-                          label: 'Nghề nghiệp', initialValue: 'Nông'),
-                      _buildTextField(
-                          label: 'Nơi cư trú mẹ',
-                          initialValue:
-                              'Phú Đông, Đại Hiệp, Đại Lộc, Quảng Nam'),
-                      _buildTextField(label: 'Cơ quan công tác'),
-                      _buildDropdownFieldFamily(label: 'Trình độ'),
-                      _buildTextField(label: 'Email'),
-                      _buildTextField(label: 'SDT', initialValue: '0384902993'),
-                    ],
-                  ),
+                _buildFamilyMemberInfo(
+                  labelPrefix: '|Mẹ',
+                  name: 'Trần Thị Thanh Xuân',
+                  yearOfBirth: '1977',
+                  ethnicity: 'Kinh',
+                  idNumber: '04817700475',
+                  occupation: 'Nông',
+                  residence: 'Phú Đông, Đại Hiệp, Đại Lộc, Quảng Nam',
+                  workplace: '',
+                  educationLevel: '',
+                  email: '',
+                  phoneNumber: '0384902993',
                 ),
               ],
             ),
-            Text('|Anh chị ruột',
+            const Text('|Anh chị ruột',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             _buildTextField(label: 'Anh chị em'),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text('Lưu'),
+                child: const Text('Lưu'),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Sinh viên liên hệ phòng công tác sinh viên hoặc 0236 3667 129 nếu có thay đổi chi tiết thông tin cá nhân (Áp dụng với các trường thông tin bị làm mờ)',
               style: TextStyle(color: Colors.blue),
               textAlign: TextAlign.center,
@@ -376,7 +318,7 @@ class _ProfilePageState extends State<ProfilePage> {
           enabled: enabled,
           decoration: InputDecoration(
             labelText: label,
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
           ),
         ),
       ),
@@ -392,7 +334,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: InputDecorator(
           decoration: InputDecoration(
             labelText: label,
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
           ),
           child: Text(controller.text.isEmpty ? 'mm/dd/yyyy' : controller.text),
         ),
@@ -407,7 +349,7 @@ class _ProfilePageState extends State<ProfilePage> {
         value: _selectedDoanThe,
         decoration: InputDecoration(
           labelText: label,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
         onChanged: (String? newValue) {
           setState(() {
@@ -431,7 +373,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           labelText: label,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
         onChanged: (String? newValue) {
           setState(() {
@@ -445,6 +387,65 @@ class _ProfilePageState extends State<ProfilePage> {
             child: Text(value),
           );
         }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildResponsiveRow(BuildContext context,
+      {required List<Widget> children}) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth < 600) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children.map((child) => Padding(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: child,
+        )).toList(),
+      );
+    } else {
+      return Row(
+        children: children.map((child) => Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: child,
+          ),
+        )).toList(),
+      );
+    }
+  }
+
+  Widget _buildFamilyMemberInfo({
+    required String labelPrefix,
+    required String name,
+    required String yearOfBirth,
+    required String ethnicity,
+    required String idNumber,
+    required String occupation,
+    required String residence,
+    required String workplace,
+    required String educationLevel,
+    required String email,
+    required String phoneNumber,
+  }) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(labelPrefix,
+              style: const TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 10),
+          _buildTextField(label: 'Họ tên', initialValue: name),
+          _buildTextField(label: 'Năm sinh', initialValue: yearOfBirth),
+          _buildTextField(label: 'Dân tộc', initialValue: ethnicity),
+          _buildTextField(label: 'CMND/CCCD', initialValue: idNumber),
+          _buildTextField(label: 'Nghề nghiệp', initialValue: occupation),
+          _buildTextField(label: 'Nơi cư trú', initialValue: residence),
+          _buildTextField(label: 'Cơ quan công tác', initialValue: workplace),
+          _buildDropdownFieldFamily(label: 'Trình độ'),
+          _buildTextField(label: 'Email', initialValue: email),
+          _buildTextField(label: 'SDT', initialValue: phoneNumber),
+        ],
       ),
     );
   }
